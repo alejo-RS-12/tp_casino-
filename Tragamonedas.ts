@@ -1,23 +1,30 @@
-import { Juego } from './juego';
+import { Casino } from "./casino";
+import { Cliente } from "./cliente";
 
-export abstract class Tragamonedas extends Juego {
-  protected valorMinimoApuesta: number;
-  protected probabilidadGanancia: number;
-  protected cantidadApuesta: number;
+export abstract class Tragamonedas extends Casino {
+  protected probabilidadGanancia: number; // Probabilidad de ganar (entre 0 y 1)
+  protected cantidadApuesta: number; // Cantidad apostada en el juego
 
-  constructor(valorMinimoApuesta: number, probabilidadGanancia: number) {
-    super();
-    this.valorMinimoApuesta = valorMinimoApuesta;
+  constructor(nombreJuego: string, valorMinimoApuesta: number, probabilidadGanancia: number, cliente: Cliente) {
+    super(nombreJuego, valorMinimoApuesta, cliente); // Pasa nombre del juego, apuesta mínima y cliente
     this.probabilidadGanancia = probabilidadGanancia;
     this.cantidadApuesta = 0;
   }
 
-  realizarApuesta(cantidad: number): void {
-    if (cantidad >= this.valorMinimoApuesta) {
-      this.cantidadApuesta = cantidad;
+  public realizarApuesta(cantidad: number): string {
+    if (!this.esApuestaValida(cantidad)) {
+      return `La apuesta no es válida. Debe ser al menos ${this.valorMinimo} y no exceder el saldo disponible.`;
+    }
+
+    this.cantidadApuesta = cantidad;
+    this.usuario.saldo -= cantidad; // Descuenta la apuesta del saldo del cliente
+
+    const ganancia = this.calcularGanancia();
+    if (ganancia > 0) {
+      this.actualizarSaldo(true, ganancia);
+      return `🎉 ¡Ganaste! Has ganado ${ganancia}. Saldo actual: ${this.usuario.saldo}`;
     } else {
-      console.log(`La apuesta debe ser mayor o igual al valor mínimo: ${this.valorMinimoApuesta}`);
-      this.cantidadApuesta = 0;
+      return `😢 No ganaste esta vez. Saldo actual: ${this.usuario.saldo}`;
     }
   }
 

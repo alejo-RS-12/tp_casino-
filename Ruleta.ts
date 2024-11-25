@@ -1,8 +1,8 @@
-import { Usuario } from "./Usuario"; //traigo la clase Usuario, con su nombre y su saldo
-import { Casino } from "./Casino"; // traigo nombre, apuestaMinima
+import { Cliente } from "./cliente"; //traigo la clase Usuario, con su nombre y su saldo
+import { Casino } from "./casino"; // traigo nombre, apuestaMinima
 
 export class Ruleta extends Casino {
-  constructor(usuario: Usuario) {
+  constructor(usuario: Cliente) {
     super("Ruleta Clasica", 50, usuario); // aca defino el nombre del juego, la apuesta minima, y el usuario
   }
 
@@ -48,25 +48,3 @@ export class Ruleta extends Casino {
     while (new Date().getTime() - start < ms) {}
   }
 }
-
-/* Para mi esta validacion deberia ir en Casino.ts:
-
-protected esApuestaValida(valor: number): boolean {
-  return valor >= this.valorMinimo && this.usuario.saldo >= valor;
-}
-Retorna TRUE si el valor de la apuesta es mayor o igual al de valorMinimo de apuesta en el juego 
-y si le alcanza al usuario el saldo que tiene para apostar.
-
-*/
-
-/* Tambien en Casino.ts deberia estar el metodo actualizarSaldo que se usaria cuando 
-ganas o perdes en cualquier juego, sumando la ganancia o restando el valor de la apuesta.
-
-protected actualizarSaldo(gano: boolean, monto: number): void {
-    if (gano) {
-      this.usuario.saldo += monto;
-    } else {
-      this.usuario.saldo -= monto;
-    }
-  }
-*/

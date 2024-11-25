@@ -1,11 +1,11 @@
-import { Casino } from './Casino';
-import { Usuario } from './Usuario';
+import { Casino } from './casino';
+import { Cliente } from './cliente';
 
 export class JuegoDeDados extends Casino {
     private _dado1: number;
     private _dado2: number;
 
-    constructor(nombre: string, valorMinimo: number, usuario: Usuario) {
+    constructor(nombre: string, valorMinimo: number, usuario: Cliente) {
         super(nombre, valorMinimo, usuario);
         this._dado1 = 0;
         this._dado2 = 0;
