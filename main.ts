@@ -4,9 +4,19 @@ import { Tragamonedas50 } from "./Tragamonedas50";
 import { Ruleta } from "./Ruleta";
 import { JuegoDeDados } from "./Dados";
 import * as readlineSync from "readline-sync";
+import * as fs from "fs";
+
+function leerInstrucciones(archivo: string): void {
+  try {
+    const instrucciones = fs.readFileSync(archivo, "utf-8");
+    console.log(instrucciones);
+  } catch (error) {
+    console.error(`No se pudo leer el archivo ${archivo}. Verifica que existe y tiene permisos de lectura.`);
+  }
+}
 
 function recargarSaldo(cliente: Cliente): void {
-  const monto = parseFloat(readlineSync.question(" Cuánto saldo deseas recargar? Ingresa el monto: "));
+  const monto = parseFloat(readlineSync.question("Cuánto saldo deseas recargar? Ingresa el monto: "));
   if (isNaN(monto) || monto <= 0) {
     console.log("Monto inválido. No se recargó saldo.");
   } else {
@@ -26,14 +36,12 @@ function mostrarMenu(): void {
 }
 
 function main(): void {
-  // Crear cliente
   const nombre = readlineSync.question("Ingresa tu nombre: ");
   const saldoInicial = parseFloat(readlineSync.question("Ingresa tu saldo inicial: "));
   const cliente = new Cliente(nombre, isNaN(saldoInicial) || saldoInicial < 0 ? 0 : saldoInicial);
 
   console.log(`¡Bienvenido ${cliente.getNombre()}! Saldo actual: ${cliente.getSaldo()}`);
 
-  // Crear instancias de juegos
   const tragamonedas25 = new Tragamonedas25(cliente);
   const tragamonedas50 = new Tragamonedas50(cliente);
   const ruleta = new Ruleta(cliente);
@@ -47,6 +55,7 @@ function main(): void {
 
     switch (opcion) {
       case "1": {
+        leerInstrucciones("tragamonedas25.txt");
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
@@ -54,7 +63,7 @@ function main(): void {
 
           if (cliente.getSaldo() <= 0) {
             console.log("Te has quedado sin saldo.");
-            const deseaRecargar = readlineSync.question(" Deseas recargar saldo? (si/no): ").toLowerCase();
+            const deseaRecargar = readlineSync.question("Deseas recargar saldo? (si/no): ").toLowerCase();
             if (deseaRecargar === "si") {
               recargarSaldo(cliente);
             } else {
@@ -63,7 +72,7 @@ function main(): void {
             }
           }
 
-          const deseaSeguir = readlineSync.question(" Quieres seguir jugando? (si/no): ").toLowerCase();
+          const deseaSeguir = readlineSync.question("Quieres seguir jugando? (si/no): ").toLowerCase();
           if (deseaSeguir !== "si") {
             seguirJugando = false;
           }
@@ -72,6 +81,7 @@ function main(): void {
       }
 
       case "2": {
+        leerInstrucciones("tragamonedas50.txt");
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
@@ -79,7 +89,7 @@ function main(): void {
 
           if (cliente.getSaldo() <= 0) {
             console.log("Te has quedado sin saldo.");
-            const deseaRecargar = readlineSync.question(" Deseas recargar saldo? (si/no): ").toLowerCase();
+            const deseaRecargar = readlineSync.question("Deseas recargar saldo? (si/no): ").toLowerCase();
             if (deseaRecargar === "si") {
               recargarSaldo(cliente);
             } else {
@@ -88,7 +98,7 @@ function main(): void {
             }
           }
 
-          const deseaSeguir = readlineSync.question(" Quieres seguir jugando? (si/no): ").toLowerCase();
+          const deseaSeguir = readlineSync.question("Quieres seguir jugando? (si/no): ").toLowerCase();
           if (deseaSeguir !== "si") {
             seguirJugando = false;
           }
@@ -97,6 +107,7 @@ function main(): void {
       }
 
       case "3": {
+        leerInstrucciones("ruleta.txt");
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
@@ -105,7 +116,7 @@ function main(): void {
 
           if (cliente.getSaldo() <= 0) {
             console.log("Te has quedado sin saldo.");
-            const deseaRecargar = readlineSync.question(" Deseas recargar saldo? (si/no): ").toLowerCase();
+            const deseaRecargar = readlineSync.question("Deseas recargar saldo? (si/no): ").toLowerCase();
             if (deseaRecargar === "si") {
               recargarSaldo(cliente);
             } else {
@@ -114,7 +125,7 @@ function main(): void {
             }
           }
 
-          const deseaSeguir = readlineSync.question(" Quieres seguir jugando? (si/no): ").toLowerCase();
+          const deseaSeguir = readlineSync.question("Quieres seguir jugando? (si/no): ").toLowerCase();
           if (deseaSeguir !== "si") {
             seguirJugando = false;
           }
@@ -123,6 +134,7 @@ function main(): void {
       }
 
       case "4": {
+        leerInstrucciones("dados.txt");
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
@@ -130,7 +142,7 @@ function main(): void {
 
           if (cliente.getSaldo() <= 0) {
             console.log("Te has quedado sin saldo.");
-            const deseaRecargar = readlineSync.question(" Deseas recargar saldo? (si/no): ").toLowerCase();
+            const deseaRecargar = readlineSync.question("Deseas recargar saldo? (si/no): ").toLowerCase();
             if (deseaRecargar === "si") {
               recargarSaldo(cliente);
             } else {
@@ -139,7 +151,7 @@ function main(): void {
             }
           }
 
-          const deseaSeguir = readlineSync.question(" Quieres seguir jugando? (si/no): ").toLowerCase();
+          const deseaSeguir = readlineSync.question("Quieres seguir jugando? (si/no): ").toLowerCase();
           if (deseaSeguir !== "si") {
             seguirJugando = false;
           }

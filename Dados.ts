@@ -50,14 +50,6 @@ export class JuegoDeDados extends Casino {
         const resultado = this.obtenerResultado();
 
         
-     /* Reglas:
-    🎲Si sale un 7 o un 11, el jugador gana automáticamente lo apostado.
-    🎲Si sale un 2, 3 o un 12, el jugador pierde al instante y necesita apostar de nuevo para seguir jugando.
-    🎲Si sale un 1, 4, 5, 6, 8, 9 o un 10, se puntúa y el juego pasa a una segunda etapa.
-    Puntuar: Es sacar la cifra con la que se buscará ganar la partida. Por ejemplo, si se saca un 8, 
-    el jugador debe seguir lanzando los dados, buscando sacar nuevamente un 8 para ganar lo apostado. 
-    Pero, si el lanzador obtiene un 7, pierde la partida.*/
-        
         if (resultado == 7 || resultado == 11) {
             this.actualizarSaldo(true, valor);
             return `🎲 Resultado: ${resultado}. ¡Ganaste! Has ganado ${valor}. Saldo actual: ${this.usuario.saldo}.`;

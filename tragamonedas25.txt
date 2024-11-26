@@ -1,0 +1,10 @@
+Bienvenidos al Juego Tragamonedas de la Ciudad de Olavarría
+
+Instrucciones:
+
+ En esta variante del juego se tendra un 25% de probabildad de ganar.
+ Al entrar, podra ingresar el monto de su apuesta.
+Una vez que ingrese el monto, comenzará el juego y podrá al 
+instante verificar si ha ganado monedas o deberá volver a apostar.
+
+¡Buena suerte!
