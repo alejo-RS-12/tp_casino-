@@ -6,7 +6,7 @@ import { JuegoDeDados } from "./Dados";
 import * as readlineSync from "readline-sync";
 import * as fs from "fs";
 
-function leerInstrucciones(archivo: string): void {
+function leerInstrucciones(archivo: string): void {//funcion para leer los archivos txt que tienen las instrucciones
   try {
     const instrucciones = fs.readFileSync(archivo, "utf-8");
     console.log(instrucciones);
@@ -15,9 +15,9 @@ function leerInstrucciones(archivo: string): void {
   }
 }
 
-function recargarSaldo(cliente: Cliente): void {
+function recargarSaldo(cliente: Cliente): void {//toma del cliente el parametro saldo y pregunta caunto recarga
   const monto = parseFloat(readlineSync.question("Cuánto saldo deseas recargar? Ingresa el monto: "));
-  if (isNaN(monto) || monto <= 0) {
+  if (isNaN(monto) || monto <= 0) {// validacion del monto introducido 
     console.log("Monto inválido. No se recargó saldo.");
   } else {
     cliente.setSaldo(cliente.getSaldo() + monto);
@@ -37,25 +37,25 @@ function mostrarMenu(): void {
 
 function main(): void {
   const nombre = readlineSync.question("Ingresa tu nombre: ");
-  const saldoInicial = parseFloat(readlineSync.question("Ingresa tu saldo inicial: "));
-  const cliente = new Cliente(nombre, isNaN(saldoInicial) || saldoInicial < 0 ? 0 : saldoInicial);
+  const saldoInicial = parseFloat(readlineSync.question("Ingresa tu saldo inicial: "));//solicita el saldo inicial y se valida que sea un número positivo. Si no es válido, se asigna un saldo de 
+  const cliente = new Cliente(nombre, isNaN(saldoInicial) || saldoInicial < 0 ? 0 : saldoInicial);// crea el nombre y el saldo inicil del cliente
 
-  console.log(`¡Bienvenido ${cliente.getNombre()}! Saldo actual: ${cliente.getSaldo()}`);
-
+  console.log(`¡Bienvenido ${cliente.getNombre()}! Saldo actual: ${cliente.getSaldo()}`);// mensaje de bievenida con los datos del cliente
+// se crean instancias de los juegos y se vincula al cliente
   const tragamonedas25 = new Tragamonedas25(cliente);
   const tragamonedas50 = new Tragamonedas50(cliente);
   const ruleta = new Ruleta(cliente);
   const dados = new JuegoDeDados("Juego de Dados", 50, cliente);
 
+  //bucle do-while mantiene al progama estable para que el usuario pueda usarlo hasta usar la opcion salirs
   let opcion: string;
-
   do {
-    mostrarMenu();
+    mostrarMenu();// se llama a esta funcion para mostrar el menu con los juegos
     opcion = readlineSync.question("Selecciona una opcion: ");
 
     switch (opcion) {
       case "1": {
-        leerInstrucciones("tragamonedas25.txt");
+        leerInstrucciones("tragamonedas25.txt");// lee las instrucciones del juego antes de poder jugar 
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
@@ -164,12 +164,12 @@ function main(): void {
         break;
       }
 
-      case "6": {
+      case "6": {// finaliza el bucle y muesta los datos del cliente con un mensaje final
         console.log(`Gracias por jugar, ${cliente.getNombre()}. Saldo final: ${cliente.getSaldo()}`);
         break;
       }
 
-      default: {
+      default: {// en caso de que el usuario elija una opcion incorrecta
         console.log("Opción inválida. Por favor, elige una opción del menú.");
       }
     }
