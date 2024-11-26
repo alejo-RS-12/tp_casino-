@@ -9,12 +9,11 @@ export class Ruleta extends Casino {
   public realizarApuesta(valor: number, numeroElegido?: number): string {
     //aca implemento el método de la Interface
     if (!this.esApuestaValida(valor)) {
-      // esta validacion deberia estar en Casino.ts, igual la agrego al final de este archivo
       return `Apuesta mínima de ${this.valorMinimo}`; // si retorna FALSE muestra este mensaje
     }
     if ( numeroElegido === undefined || numeroElegido < 0 || numeroElegido > 36 ) {
       return "El numero elegido debe estar entre 0 y 36.";
-    } // VERIFICAR!!! a veces ME TIRA ERROR CON ESTA VALIDACION
+    } 
     this.usuario.saldo -= valor; //descuenta el monto de la apuesta despues de validar numero elegido y monto de la apuesta
     console.log("Girando la ruleta...");
     let numeroGanador = this.simularRuleta(); //Simula el giro de la ruleta
@@ -22,8 +21,7 @@ export class Ruleta extends Casino {
 
     if (numeroElegido === numeroGanador) {
       let ganancia = valor * 36;
-      this.actualizarSaldo(true, ganancia); // este metodo deberia estar en Casino.ts, igual la agrego al final de este archivo
-      // this.usuario.saldo += ganancia;  // le paga el pleno multiplicado * 36  SI NO AGREGAMOS EL METODO actualizarSaldo en CASINO.ts iria una instruccion asi
+      this.actualizarSaldo(true, ganancia); 
       return `Ganaste en ${this.nombre}! Ganancia: ${ganancia}. Saldo actual: ${this.usuario.saldo}`;
     } else {
       return `Perdiste en ${this.nombre}. Saldo actual: ${this.usuario.saldo}. Mas suerte para la proxima vez!`;
@@ -43,7 +41,7 @@ export class Ruleta extends Casino {
   }
 
   private esperar(ms: number): void {
-    // Pausa la ejecución hasta que lleague a los "ms" asignados (milisegiundos)
+    // Pausa la ejecución hasta que llegue a los "ms" asignados (milisegiundos)
     let start = new Date().getTime();
     while (new Date().getTime() - start < ms) {}
   }
