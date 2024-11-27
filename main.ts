@@ -16,7 +16,7 @@ function leerInstrucciones(archivo: string): void {//funcion para leer los archi
 }
 
 function recargarSaldo(cliente: Cliente): void {//toma del cliente el parametro saldo y pregunta caunto recarga
-  const monto = parseFloat(readlineSync.question("Cuánto saldo deseas recargar? Ingresa el monto: "));
+  const monto = parseFloat(readlineSync.question("Cuanto saldo deseas recargar? Ingresa el monto: "));
   if (isNaN(monto) || monto <= 0) {// validacion del monto introducido 
     console.log("Monto inválido. No se recargó saldo.");
   } else {
@@ -111,7 +111,7 @@ function main(): void {
         let seguirJugando = true;
         do {
           const apuesta = parseFloat(readlineSync.question("Ingresa el monto de tu apuesta: "));
-          const numero = parseInt(readlineSync.question("Elige un número entre 0 y 36: "));
+          const numero = parseInt(readlineSync.question("Elige un numero entre 0 y 36: "));
           console.log(ruleta.realizarApuesta(apuesta, numero));
 
           if (cliente.getSaldo() <= 0) {

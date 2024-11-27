@@ -43,7 +43,7 @@ export class JuegoDeDados extends Casino {
     // Realizar apuesta
     public realizarApuesta(valor: number): string {
         if (!this.esApuestaValida(valor)) {
-            return `La apuesta no es válida. Debe ser de al menos ${this.valorMinimo} y no exceder el saldo disponible.`;
+            return `La apuesta no es válida. Debe ser de al menos ${this.valorMinimo} y no exceder el saldo disponible (${this.usuario.saldo})`;
         }
 
         this.lanzarDados();

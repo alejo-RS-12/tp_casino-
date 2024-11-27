@@ -7,26 +7,36 @@ export class Ruleta extends Casino {
   }
 
   public realizarApuesta(valor: number, numeroElegido?: number): string {
-    //aca implemento el método de la Interface
-    if (!this.esApuestaValida(valor)) {
-      return `Apuesta mínima de ${this.valorMinimo}`; // si retorna FALSE muestra este mensaje
+    // Validar que el número elegido sea un número
+    if (typeof numeroElegido !== "number" || isNaN(numeroElegido)) {
+      return "El número elegido tiene que ser entre 0 y 36.";
     }
-    if ( numeroElegido === undefined || numeroElegido < 0 || numeroElegido > 36 ) {
-      return "El numero elegido debe estar entre 0 y 36.";
-    } 
-    this.usuario.saldo -= valor; //descuenta el monto de la apuesta despues de validar numero elegido y monto de la apuesta
+  
+    // Validar que el monto de la apuesta sea mayor o igual al mínimo y menor o igual al saldo actual
+    if (!this.esApuestaValida(valor)) {
+      return `La apuesta no es válida. Debe ser de al menos ${this.valorMinimo} y no exceder el saldo disponible (${this.usuario.saldo}).`;
+  }
+  
+    // Validar que el número elegido esté dentro del rango permitido
+    if (numeroElegido < 0 || numeroElegido > 36) {
+      return "El número elegido tiene que ser entre 0 y 36.";
+    }
+  
+    // Procesar la apuesta
+    this.usuario.saldo -= valor; // Descuenta el monto de la apuesta después de validar el número elegido y el monto de la apuesta
     console.log("Girando la ruleta...");
-    let numeroGanador = this.simularRuleta(); //Simula el giro de la ruleta
-    console.log(`La bolilla cayo en el numero: ${numeroGanador}`);
-
+    let numeroGanador = this.simularRuleta(); // Simula el giro de la ruleta
+    console.log(`La bolilla cayó en el número: ${numeroGanador}`);
+  
     if (numeroElegido === numeroGanador) {
       let ganancia = valor * 36;
-      this.actualizarSaldo(true, ganancia); 
-      return `Ganaste en ${this.nombre}! Ganancia: ${ganancia}. Saldo actual: ${this.usuario.saldo}`;
+      this.actualizarSaldo(true, ganancia);
+      return `¡Ganaste en ${this.nombre}! Ganancia: ${ganancia}. Saldo actual: ${this.usuario.saldo}`;
     } else {
-      return `Perdiste en ${this.nombre}. Saldo actual: ${this.usuario.saldo}. Mas suerte para la proxima vez!`;
+      return `Perdiste en ${this.nombre}. Saldo actual: ${this.usuario.saldo}. ¡Más suerte para la próxima vez!`;
     }
   }
+  
 
   private simularRuleta(): number {
     let numeroActual: number;
