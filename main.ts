@@ -25,8 +25,9 @@ function recargarSaldo(cliente: Cliente): void {//toma del cliente el parametro 
   }
 }
 
-function mostrarMenu(): void {
+function mostrarMenu(cliente: Cliente): void {
   console.log("\n=== Bienvenido al Casino ===");
+  console.log(`Saldo actual: ${cliente.getSaldo()}`);
   console.log("1. Jugar a la Tragamonedas 25%");
   console.log("2. Jugar a la Tragamonedas 50%");
   console.log("3. Jugar a la Ruleta");
@@ -50,7 +51,7 @@ function main(): void {
   //bucle do-while mantiene al progama estable para que el usuario pueda usarlo hasta usar la opcion salirs
   let opcion: string;
   do {
-    mostrarMenu();// se llama a esta funcion para mostrar el menu con los juegos
+    mostrarMenu(cliente);// se llama a esta funcion para mostrar el menu con los juegos y con los datos del cliente actulizados
     opcion = readlineSync.question("Selecciona una opcion: ");
 
     switch (opcion) {
