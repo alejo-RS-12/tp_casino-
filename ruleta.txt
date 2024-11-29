@@ -1,8 +1,8 @@
 RULETA CLASICA
 Instrucciones:
 
-1. Para comenzar a jugar debera ingresar el numero al que desea apostar (del 0 al 36).
-2. Luego, podra ingresar el monto de su apuesta, al numero ingresado anteriormente (PLENO).
+1. Para comenzar a jugar debera ingresar el monto de su apuesta.
+2. Luego, podra ingresar el numero al que desea apostar (del 0 al 36, PLENO).
 3. La ruleta girara inmediatamente despues de ingresar su apuesta, y mostrara en pantalla el numero favorecido.
 4. Si el numero favorecido es el mismo que usted eligio, ganara 36 veces el monto de su apuesta. 
 5. Si no acerto el numero, se descontará el monto apostado de su saldo.
