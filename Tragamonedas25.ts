@@ -16,6 +16,16 @@ export class Tragamonedas25 extends Tragamonedas {
   }
 
   public realizarApuesta(cantidad: number): string {
+    // Valido si la apuesta es válida antes de intentar realizarla
+    if (cantidad < this.valorMinimo) {
+      return `La apuesta mínima es ${this.valorMinimo}.`;
+    }
+    
+    if (cantidad > this.usuario.saldo) {
+      return `No tienes suficiente saldo para esta apuesta. Saldo actual: ${this.usuario.saldo}`;
+    }
+
+    // Si la apuesta es válida, se procede con el cálculo
     super.realizarApuesta(cantidad); // Valida la apuesta y descuenta el saldo
     if (this.cantidadApuesta === 0) {
       return "La apuesta no es válida.";
