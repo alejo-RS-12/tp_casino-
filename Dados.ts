@@ -33,11 +33,16 @@ export class JuegoDeDados extends Casino {
     private lanzarDados(): void {
         this.dado1 = Math.floor(Math.random() * 6) + 1;
         this.dado2 = Math.floor(Math.random() * 6) + 1;
+        console.log("🎲 ", this.dado1, " + 🎲 ", this.dado2, " = " );
     }
 
     // Método Obtener Resultado, es la suma de los dados
     private obtenerResultado(): number {
-        return this.dado1 + this.dado2;
+        let resul:number;
+        resul = this.dado1 + this.dado2; 
+        console.log("    🌟 ", resul, " 🌟");
+        
+        return resul
     }
 
     // Realizar apuesta
@@ -47,13 +52,13 @@ export class JuegoDeDados extends Casino {
         }
 
         this.lanzarDados();
-        const resultado = this.obtenerResultado();
+        let resultado = this.obtenerResultado();
 
         
-        if (resultado == 7 || resultado == 11) {
+        if (resultado === 7 || resultado === 11) {
             this.actualizarSaldo(true, valor);
             return `🎲 Resultado: ${resultado}. ¡Ganaste! Has ganado ${valor}. Saldo actual: ${this.usuario.saldo}.`;
-        } else if (resultado == 2 || resultado == 3 || resultado == 12) {
+        } else if (resultado === 2 || resultado === 3 || resultado === 12) {
             this.actualizarSaldo(false, valor);
             return `🎲 Resultado: ${resultado}. Perdiste. Has perdido ${valor}. Saldo actual: ${this.usuario.saldo}.`;
         } else {
@@ -64,10 +69,12 @@ export class JuegoDeDados extends Casino {
     // Método para la segunda etapa (puntuar)
     private segundaEtapa(punto: number, valor: number): string {
         let resultado: number;
+        console.log("Has pasado a la segunta etapa. ¡Sigue intentando conseguir el mismo valor que el punto!");
         do {
+            console.log ("Lanza los dados!!!");
             this.lanzarDados();
             resultado = this.obtenerResultado();
-            if (resultado == 7) {                   //verifica si el resultado es 7. Si es así, el jugador pierde.
+            if (resultado === 7) {                   //verifica si el resultado es 7. Si es así, el jugador pierde.
                 this.actualizarSaldo(false, valor); //Descuenta el saldo del jugador
                 return `🎲 Resultado: ${resultado}. Perdiste. Has perdido ${valor}. Saldo actual: ${this.usuario.saldo}.`;
             }
